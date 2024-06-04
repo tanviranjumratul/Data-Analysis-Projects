@@ -17,6 +17,8 @@ The dataset includes the following tables:
 - `work`: Stores details about paintings.
 - `product_size`: Provides details about product sizes associated with paintings.
 
+# If work.csv file didn't shows the accurate result. Delete it on server and import the work.sql query.
+
 ## Exploring the dataset 
 
 ```sql
