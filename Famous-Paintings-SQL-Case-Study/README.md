@@ -35,7 +35,7 @@ SELECT * FROM product_size; -- 110347
 # Here is the Code
 
 /*1) Fetch all the paintings which are not displayed on any museaums?*/
-```
+```sql
 SELECT 
     *
 FROM
@@ -45,7 +45,7 @@ WHERE
 ```
 
 /*2) Are there museums without any paintings?*/
-```
+```sql
 SELECT 
     *
 FROM
@@ -57,7 +57,7 @@ WHERE
 ```
 
 /*3) How many paintings have an asking price of more than their regular price? */
-```
+```sql
 SELECT 
     COUNT(*) AS num_paintings_higher_price
 FROM
@@ -68,7 +68,7 @@ WHERE
 
     
 /*4) Identify the paintings whose asking price is less than 50% of its regular price.*/
-```
+```sql
 SELECT 
     *
 FROM
@@ -78,7 +78,7 @@ WHERE
  ```   
 
 /*5) Which canvas size costs the most?*/
-```
+```sql
 SELECT 
     size_id, width, height, label
 FROM
@@ -93,7 +93,7 @@ LIMIT 1;
 ```
 
 /*6) Delete duplicate records from work, product_size, subject and image_link tables*/
-```
+```sql
 -- DELETING FROM WORK TABLE
 DELETE FROM WORK
 WHERE WORK_ID IN (
@@ -157,7 +157,7 @@ WHERE (WORK_ID, URL, thumbnail_small_url, thumbnail_large_url) IN (
 ```
 
 /* 7) Identify the museums with invalid city information in the given dataset */
-```
+```sql
 SELECT 
     *
 FROM
@@ -168,7 +168,7 @@ WHERE
 
 
 /*8) Museum_Hours table has 1 invalid entry. Identify it and remove it.*/
-```
+```sql
 SELECT 
     *
 FROM
@@ -181,7 +181,7 @@ WHERE
 
 
 /* 9) Fetch the top 10 most famous painting subject */
-```
+```sql
 SELECT 
     subject, COUNT(*) AS num_paintings
 FROM
@@ -192,7 +192,7 @@ LIMIT 10;
 ```
 
 /* 10) Identify the museums which are open on both Sunday and Monday. Display museum name, city. */
-```
+```sql
 SELECT 
     M.name, m.city
 FROM
@@ -204,7 +204,7 @@ WHERE
 ```
 
 /*11) How many museums are open every single day?*/
-```
+```sql
 SELECT 
     COUNT(*) AS num_museums_open_every_day
 FROM
@@ -217,7 +217,7 @@ FROM
 ```
 
 /*12) Which are the top 5 most popular museum? (Popularity is defined based on most no of paintings in a museum)*/
-```
+```sql
 SELECT 
     m.name AS museum_name,
     m.city,
@@ -232,7 +232,7 @@ LIMIT 5;
 ```
 
 /*13) Who are the top 5 most popular artist? (Popularity is defined based on most no of paintings done by an artist)*/
-```
+```sql
 SELECT 
     a.full_name AS artist_name,
     COUNT(w.work_id) AS num_paintings
@@ -246,7 +246,7 @@ LIMIT 5;
 ```
 
 /*14) Display the 3 least popular canva sizes*/
-```
+```sql
 SELECT 
     cs.size_id,
     cs.width,
@@ -263,7 +263,7 @@ LIMIT 3;
 ```
 
 /*15) Which museum is open for the longest during a day. Dispay museum name, state and hours open and which day?*/
-```
+```sql
 SELECT *
 FROM (
     SELECT m.name AS museum_name, m.state, day, open, close,
@@ -278,7 +278,7 @@ WHERE x.rnk = 1;
 ```
 
 /*16) Which museum has the most no of most popular painting style?*/
-```
+```sql
 SELECT 
     m.name AS museum_name,
     COUNT(*) AS num_paintings
@@ -308,7 +308,7 @@ LIMIT 1;
 
 
 /*17) Identify the artists whose paintings are displayed in multiple countries*/
-```
+```sql
 create table  temp (
  SELECT DISTINCT 
         a.full_name AS artist,
@@ -331,8 +331,7 @@ order by country desc;
 
 
 /*18) Display the country and the city with most no of museums. Output 2 seperate columns to mention the city and country. If there are multiple value, seperate them with comma.*/
-
-```
+```sql
 SELECT
     country,
     GROUP_CONCAT(city ORDER BY num_museums DESC SEPARATOR ', ') AS cities
@@ -351,7 +350,7 @@ LIMIT 1;
 
 /*19) Identify the artist and the museum where the most expensive and least expensive painting is placed. 
 Display the artist name, sale_price, painting name, museum name, museum city and canvas label*/
-```
+```sql
 WITH cte AS (
     SELECT 
         w.work_id,
@@ -384,7 +383,7 @@ limit 2;
 ```
 
 /*20) Which country has the 5th highest no of paintings?*/
-```
+```sql
 SELECT country
 FROM (
     SELECT m.country, COUNT(*) AS num_paintings
@@ -399,7 +398,7 @@ LIMIT 1;
 ```
 
 /*21) Which are the 3 most popular and 3 least popular painting styles?*/
-```
+```sql
 USE museum;
 WITH style_counts AS (
     SELECT 
@@ -425,7 +424,7 @@ order by num_paintings desc;
 ```
 
 /*22) Which artist has the most no of Portraits paintings outside USA?. Display artist name, no of paintings and the artist nationality.*/
-```
+```sql
 SELECT 
     full_name AS artist_name,
     nationality,
