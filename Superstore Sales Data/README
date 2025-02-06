@@ -1,0 +1,85 @@
+# Superstore Database
+
+## Overview
+The `Superstore.sql` file contains a structured dataset for a retail superstore, useful for data analysis and SQL practice. This database includes sales, customers, orders, and product details, making it ideal for business intelligence and reporting tasks.
+
+## Features
+- Detailed transaction data including sales, discounts, and profit.
+- Customer information with segmentation details.
+- Product categories and subcategories.
+- Order details including shipping information.
+
+## Installation
+1. Ensure you have MySQL or PostgreSQL installed.
+2. Clone this repository:
+   ```sh
+   git clone https://github.com/your-repo/superstore.git
+   ```
+3. Import the SQL file into your database:
+   ```sh
+   mysql -u your_user -p your_database < Superstore.sql
+   ```
+   Or for PostgreSQL:
+   ```sh
+   psql -U your_user -d your_database -f Superstore.sql
+   ```
+
+## Database Schema
+The database consists of the following tables:
+- `orders` – Stores order-level details like order ID, order date, and customer ID.
+- `customers` – Contains customer demographic information.
+- `products` – Lists product details including categories and subcategories.
+- `sales` – Includes sales transactions with revenue, discount, and profit margins.
+
+## SQL Queries
+### 1. Total Sales Per Category
+```sql
+SELECT category, SUM(sales) AS total_sales 
+FROM sales 
+JOIN products ON sales.product_id = products.product_id 
+GROUP BY category;
+```
+
+### 2. Top 5 Customers by Total Purchase Amount
+```sql
+SELECT customers.customer_name, SUM(sales.sales) AS total_spent 
+FROM sales 
+JOIN customers ON sales.customer_id = customers.customer_id 
+GROUP BY customers.customer_name 
+ORDER BY total_spent DESC 
+LIMIT 5;
+```
+
+### 3. Monthly Sales Trend
+```sql
+SELECT DATE_FORMAT(order_date, '%Y-%m') AS month, SUM(sales) AS total_sales 
+FROM orders 
+JOIN sales ON orders.order_id = sales.order_id 
+GROUP BY month 
+ORDER BY month;
+```
+
+### 4. Most Profitable Products
+```sql
+SELECT products.product_name, SUM(sales.profit) AS total_profit 
+FROM sales 
+JOIN products ON sales.product_id = products.product_id 
+GROUP BY products.product_name 
+ORDER BY total_profit DESC 
+LIMIT 10;
+```
+
+### 5. Average Discount by Category
+```sql
+SELECT category, AVG(discount) AS avg_discount 
+FROM sales 
+JOIN products ON sales.product_id = products.product_id 
+GROUP BY category;
+```
+
+## Contributions
+Feel free to contribute by improving queries, adding new features, or enhancing the dataset. Fork the repository and submit a pull request!
+
+## License
+This project is licensed under the MIT License.
+
